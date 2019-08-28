@@ -18,6 +18,7 @@ package whitelist2
 
 import (
 	"context"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apiserver/pkg/registry/rest"
@@ -68,11 +69,19 @@ func (m *Whitelist2Storage) List(ctx context.Context, options *metainternalversi
 	return &wardle.Whitelist2List{
 		Items: []wardle.Whitelist2{
 			{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:              "default",
+					CreationTimestamp: metav1.Now(),
+				},
 				Name: "default",
 				Ips:  []string{"127.0.0.1", "127.0.0.2"},
 				ID:   1,
 			},
 			{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:              "localhost",
+					CreationTimestamp: metav1.Now(),
+				},
 				Name: "localhost",
 				Ips:  []string{"127.0.0.3", "127.0.0.4"},
 				ID:   2,

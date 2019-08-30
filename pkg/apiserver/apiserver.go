@@ -112,6 +112,10 @@ func (c completedConfig) New() (*WardleServer, error) {
 
 	apiGroupInfo := genericapiserver.NewDefaultAPIGroupInfo(wardle.GroupName, Scheme, metav1.ParameterCodec, Codecs)
 
+	v1alpha1storage := map[string]rest.Storage{}
+	v1alpha1storage["flunders"] = flunderstorage.NewStorage()
+	apiGroupInfo.VersionedResourcesStorageMap["v1alpha1"] = v1alpha1storage
+
 	v1beta1storage := map[string]rest.Storage{}
 	v1beta1storage["flunders"] = flunderstorage.NewStorage()
 	apiGroupInfo.VersionedResourcesStorageMap["v1beta1"] = v1beta1storage
